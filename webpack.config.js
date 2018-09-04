@@ -1,8 +1,10 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
 module.exports = {
   entry: "./app/index.tsx",
   output: {
     filename: "bundle.js",
-    path: __dirname + "/public/dist"
+    path: __dirname + "/dist"
   },
   // Enable sourcemaps for debugging webpack's output.
   devtool: "source-map",
@@ -34,5 +36,17 @@ module.exports = {
       }
     ]
   },
-  mode: "production"
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'app/index.html'
+    })
+  ],
+  performance: {
+    hints: false
+  },
+  mode: "development",
+  devServer: {
+    compress: true,
+    port: 8080
+  }
 };

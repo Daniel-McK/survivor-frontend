@@ -61,4 +61,4 @@ typings/
 .next
 
 # build files
-/public/dist
+/dist
