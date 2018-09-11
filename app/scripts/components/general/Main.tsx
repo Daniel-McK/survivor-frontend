@@ -1,7 +1,10 @@
+import './Main.scss';
 import * as React from 'react';
 import { getContestants } from '../../api/api-gateway';
+import { List } from '../list/List';
 
 interface MainState {
+  activeContestant?: any;
   contestants: any[];
 }
 
@@ -10,6 +13,7 @@ export class Main extends React.Component<{}, MainState> {
   constructor(props: {}) {
     super(props);
     this.state = {
+      activeContestant: null,
       contestants: []
     };
   }
@@ -19,13 +23,23 @@ export class Main extends React.Component<{}, MainState> {
   }
 
   public render() {
-    const { contestants } = this.state;
+    const { activeContestant, contestants } = this.state;
     return (
-      <div>
-        <p>Contestants</p>
-        {contestants.map((contestant) => <p>{contestant.name}</p>)}
+      <div className="main-component">
+        <List
+          displayProperty="name"
+          options={contestants || []}
+          onClick={this.setActive}
+          active={activeContestant}
+        />
       </div>
     );
+  }
+
+  private setActive = (contestant) => {
+    this.setState({
+      activeContestant: contestant
+    })
   }
 
   private async getContestants() {

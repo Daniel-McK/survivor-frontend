@@ -1,0 +1,22 @@
+@import "../../../styles/theme.scss";
+
+.list {
+  border-right: 1px solid #c6ddde; /* $color-primary-light; */
+  width: 250px;
+  height: 100%;
+
+  > .list__item {
+    padding: 10px 15px;
+    border-bottom: solid 1px #c6ddde;
+
+    &:hover {
+      background-color: #c6ddde;
+      cursor: pointer;
+    }
+
+    &.selected {
+      background: $color-primary-light;
+      color: $color-primary-font;
+    }
+  }
+}
