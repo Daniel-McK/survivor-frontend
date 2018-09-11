@@ -1,13 +1,26 @@
 import * as React from 'react';
-import './Header.scss';
+import styled from 'react-emotion';
+import theme from '../../../styles/theme';
 
+const HeaderWrapper = styled('div')`
+  background-color: ${theme.color.primary};
+  color: ${theme.color.primaryFont};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > h1 {
+    margin: 0;
+    padding: 15px 0 10px;
+  }
+`;
 
 export class Header extends React.Component<{}, {}> {
   public render() {
     return (
-      <div className="app-header">
-        <h1 className="app-header__title">Fantasy Survivor</h1>
-      </div>
+      <HeaderWrapper>
+        <h1>Fantasy Survivor</h1>
+      </HeaderWrapper>
     );
   }
 }

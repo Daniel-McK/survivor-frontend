@@ -1,12 +1,17 @@
-import './Main.scss';
 import * as React from 'react';
 import { getContestants } from '../../api/api-gateway';
 import { List } from '../list/List';
+import styled from '../../../../node_modules/react-emotion';
 
 interface MainState {
   activeContestant?: any;
   contestants: any[];
 }
+
+const MainWrapper = styled('div')`
+  flex: 1;
+  display: flex;
+`;
 
 export class Main extends React.Component<{}, MainState> {
 
@@ -25,14 +30,14 @@ export class Main extends React.Component<{}, MainState> {
   public render() {
     const { activeContestant, contestants } = this.state;
     return (
-      <div className="main-component">
+      <MainWrapper>
         <List
           displayProperty="name"
           options={contestants || []}
           onClick={this.setActive}
           active={activeContestant}
         />
-      </div>
+      </MainWrapper>
     );
   }
 

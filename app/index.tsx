@@ -1,7 +1,19 @@
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
-import './styles/index.scss';
 import App from './scripts/components/general/App';
+import { injectGlobal } from 'emotion';
+
+injectGlobal`
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: #F5FFFF;
+  }
+  *, * * {
+    box-sizing: border-box;
+  }
+`;
 
 ReactDOM.render(
   <App />,
