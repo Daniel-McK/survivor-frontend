@@ -6,3 +6,7 @@ const SEASONS_PATH = `${BASE_URL}/seasons`;
 export async function getContestants(seasonId: string) {
   return axios.get(`${SEASONS_PATH}/${seasonId}/contestants`)
 }
+
+export async function getEpisodes(seasonId: string) {
+  return axios.get(`${SEASONS_PATH}/${seasonId}/episodes`)
+}

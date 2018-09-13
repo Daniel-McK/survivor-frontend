@@ -5,7 +5,7 @@ import { AppTab } from "../../models/structure";
 
 const tabs = [
   { tabId: AppTab.Contestants, label: "Contestants" },
-  { tabId: AppTab.People, label: "People" }
+  { tabId: AppTab.Episodes, label: "Episodes" }
 ];
 
 const HeaderWrapper = styled("div")`
@@ -25,12 +25,21 @@ const TabList = styled("div")`
   display: flex;
 `;
 
-const Tab = styled("div")`
+const Tab = styled("div")(
+  ({ selected }: any) => `
   margin: 10px;
   padding: 2px 4px;
   text-transform: uppercase;
   cursor: pointer;
-`;
+  ${
+    selected
+      ? ` border-bottom: 3px solid ${theme.color.white}; `
+      : `&:hover {
+          border-bottom: 3px solid ${theme.color.primaryLight};
+        }`
+  }
+`
+);
 
 interface HeaderProps {
   selectedTab: AppTab;
@@ -43,32 +52,24 @@ export class Header extends React.Component<HeaderProps, {}> {
       <HeaderWrapper>
         <h1>Fantasy Survivor</h1>
         <TabList>
-          {tabs.map(tab => {
-            const selected = tab.tabId === this.props.selectedTab;
-
-            return (
-              <Tab
-                key={tab.tabId}
-                className={css`
-                  ${selected
-                    ? `border-bottom: 3px solid ${theme.color.white}`
-                    : `&:hover { border-bottom: 3px solid ${
-                        theme.color.primaryLight
-                      }; }`};
-                `}
-                data-id={tab.tabId}
-                onClick={this.onTabClick}
-              >
-                {tab.label}
-              </Tab>
-            );
-          })}
+          {tabs.map(tab => (
+            <Tab
+              key={tab.tabId}
+              selected={tab.tabId === this.props.selectedTab}
+              data-id={tab.tabId}
+              onClick={this.onTabClick}
+            >
+              {tab.label}
+            </Tab>
+          ))}
         </TabList>
       </HeaderWrapper>
     );
   }
 
   private onTabClick = ev => {
-    ev && ev.target && this.props.onTabChange(parseInt(ev.target.dataset.id, 10));
+    ev &&
+      ev.target &&
+      this.props.onTabChange(parseInt(ev.target.dataset.id, 10));
   };
 }

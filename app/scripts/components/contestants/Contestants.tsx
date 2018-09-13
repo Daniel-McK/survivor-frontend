@@ -3,7 +3,7 @@ import { getContestants } from '../../api/api-gateway';
 import { List } from '../list/List';
 import styled from '../../../../node_modules/react-emotion';
 
-interface MainState {
+interface ContestantsState {
   activeContestant?: any;
   contestants: any[];
 }
@@ -13,7 +13,7 @@ const MainWrapper = styled('div')`
   display: flex;
 `;
 
-export class Main extends React.Component<{}, MainState> {
+export class Contestants extends React.Component<{}, ContestantsState> {
 
   constructor(props: {}) {
     super(props);
