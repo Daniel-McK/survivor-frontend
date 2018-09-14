@@ -1,11 +1,11 @@
-import * as React from "react";
-import { Header } from "./Header";
-import styled from "react-emotion";
-import { AppTab } from "../../models/structure";
-import { Contestants } from "../contestants/Contestants";
-import { Episodes } from "../episodes/Episodes";
+import * as React from 'react';
+import { Header } from './Header';
+import styled from 'react-emotion';
+import { AppTab } from '../../models/structure';
+import { Contestants } from '../contestants/Contestants';
+import { Episodes } from '../episodes/Episodes';
 
-const AppWrapper = styled("div")`
+const AppWrapper = styled('div')`
   display: flex;
   flex-direction: column;
   height: 100vh;

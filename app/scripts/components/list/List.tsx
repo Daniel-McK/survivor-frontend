@@ -1,9 +1,9 @@
-import * as React from "react";
-import { css } from "emotion";
-import styled from "react-emotion";
-import theme from "../../../styles/theme";
+import * as React from 'react';
+import { css } from 'emotion';
+import styled from 'react-emotion';
+import theme from '../../../styles/theme';
 
-const ListWrapper = styled("ul")`
+const ListWrapper = styled('ul')`
   border-right: 1px solid #c6ddde;
   width: 250px;
   height: 100%;
@@ -12,7 +12,7 @@ const ListWrapper = styled("ul")`
   padding: 0;
 `;
 
-const ListItem = styled("li")(({ selected }: any) => `
+const ListItem = styled('li')(({ selected }: any) => `
   padding: 10px 15px;
   border-bottom: solid 1px #c6ddde;
   background-color: ${selected && theme.color.primaryLight};
@@ -20,7 +20,7 @@ const ListItem = styled("li")(({ selected }: any) => `
   cursor: pointer;
 
   &:hover {
-    background-color: ${selected ? theme.color.primaryLight : "#c6ddde"}
+    background-color: ${selected ? theme.color.primaryLight : '#c6ddde'}
   }
 `
 );

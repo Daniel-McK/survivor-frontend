@@ -44,7 +44,7 @@ export class Contestants extends React.Component<{}, ContestantsState> {
   private setActive = (contestant) => {
     this.setState({
       activeContestant: contestant
-    })
+    });
   }
 
   private async getContestants() {

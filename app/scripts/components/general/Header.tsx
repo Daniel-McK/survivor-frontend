@@ -1,14 +1,14 @@
-import * as React from "react";
-import styled, { css } from "react-emotion";
-import theme from "../../../styles/theme";
-import { AppTab } from "../../models/structure";
+import * as React from 'react';
+import styled, { css } from 'react-emotion';
+import theme from '../../../styles/theme';
+import { AppTab } from '../../models/structure';
 
 const tabs = [
-  { tabId: AppTab.Contestants, label: "Contestants" },
-  { tabId: AppTab.Episodes, label: "Episodes" }
+  { tabId: AppTab.Contestants, label: 'Contestants' },
+  { tabId: AppTab.Episodes, label: 'Episodes' }
 ];
 
-const HeaderWrapper = styled("div")`
+const HeaderWrapper = styled('div')`
   background-color: ${theme.color.primary};
   color: ${theme.color.primaryFont};
   display: flex;
@@ -21,11 +21,11 @@ const HeaderWrapper = styled("div")`
   }
 `;
 
-const TabList = styled("nav")`
+const TabList = styled('nav')`
   display: flex;
 `;
 
-const Tab = styled("div")(
+const Tab = styled('div')(
   ({ selected }: any) => `
   margin: 10px;
   padding: 2px 4px;

@@ -10,6 +10,6 @@ const theme = {
     secondaryFont: '#000000',
     white: '#ffffff'
   }
-}
+};
 
 export default theme;

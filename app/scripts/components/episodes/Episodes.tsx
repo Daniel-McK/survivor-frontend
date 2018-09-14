@@ -44,7 +44,7 @@ export class Episodes extends React.Component<{}, EpisodesState> {
   private setActive = (episode) => {
     this.setState({
       activeEpisode: episode
-    })
+    });
   }
 
   private async getUsers() {
