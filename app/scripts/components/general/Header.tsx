@@ -21,7 +21,7 @@ const HeaderWrapper = styled("div")`
   }
 `;
 
-const TabList = styled("div")`
+const TabList = styled("nav")`
   display: flex;
 `;
 
