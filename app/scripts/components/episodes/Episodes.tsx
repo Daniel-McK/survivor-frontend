@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { getEpisodes } from '../../api/api-gateway';
-import { List } from '../list/List';
 import styled from '../../../../node_modules/react-emotion';
+import { map } from 'lodash';
 
 interface EpisodesState {
   activeEpisode?: any;
@@ -32,12 +32,7 @@ export class Episodes extends React.Component<{}, EpisodesState> {
     const { activeEpisode, episodes } = this.state;
     return (
       <MainWrapper>
-        <List
-          displayProperty="name"
-          options={episodes || []}
-          onClick={this.setActive}
-          active={activeEpisode}
-        />
+        {map(episodes, (episode) => episode.name)}
       </MainWrapper>
     );
   }

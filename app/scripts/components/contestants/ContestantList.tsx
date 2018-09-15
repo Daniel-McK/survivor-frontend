@@ -3,6 +3,7 @@ import { css } from 'emotion';
 import styled from 'react-emotion';
 import theme from '../../../styles/theme';
 import { replace } from 'lodash';
+import { Contestant } from '../../models/types';
 
 const ListScroller = styled('div')`
   overflow-x: auto;
@@ -44,28 +45,27 @@ const FloatingName = styled('pre')(({ selected }: any) => `
   opacity: 0.9;
 `);
 
-interface ListProps {
-  options: any[];
-  displayProperty: string;
+interface ContestantListProps {
+  options: Contestant[];
   onClick: (option: any) => void;
-  active?: any;
+  active?: Contestant;
 }
 
-export class List extends React.Component<ListProps, {}> {
+export default class ContestantList extends React.Component<ContestantListProps, {}> {
   public render() {
-    const { active, displayProperty, onClick, options } = this.props;
+    const { active, onClick, options } = this.props;
 
     return (
       <ListScroller>
         <ListWrapper>
-          {options.map((option, index) => (
+          {options.map((contestant, index) => (
             <ListItem
-              onClick={onClick.bind(null, option)}
-              key={option[displayProperty]}
-              selected={active === option}
+              onClick={onClick.bind(null, contestant)}
+              key={contestant.id}
+              selected={active === contestant}
             >
-              <img src={option.imageUrl} width="100" height="125" />
-              <FloatingName selected={active === option}>{replace(option[displayProperty], ' ', '\r\n')}</FloatingName>
+              <img src={contestant.imageUrl} width="100" height="125" />
+              <FloatingName selected={active === contestant}>{replace(contestant.name, ' ', '\r\n')}</FloatingName>
             </ListItem>
           ))}
         </ListWrapper>

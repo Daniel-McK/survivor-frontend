@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { getContestants } from '../../api/api-gateway';
-import { List } from '../list/List';
+import ContestantList from './ContestantList';
 import styled from '../../../../node_modules/react-emotion';
 import { Contestant } from '../../models/types';
 import ContestantProfile from './ContestantProfile';
@@ -34,8 +34,7 @@ export class Contestants extends React.Component<{}, ContestantsState> {
     const { activeContestant, contestants } = this.state;
     return (
       <MainWrapper>
-        <List
-          displayProperty="name"
+        <ContestantList
           options={contestants || []}
           onClick={this.setActive}
           active={activeContestant}
