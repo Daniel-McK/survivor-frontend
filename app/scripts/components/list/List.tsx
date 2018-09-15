@@ -4,17 +4,16 @@ import styled from 'react-emotion';
 import theme from '../../../styles/theme';
 
 const ListWrapper = styled('ul')`
-  border-right: 1px solid #c6ddde;
-  width: 250px;
-  height: 100%;
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  border-bottom: solid 1px #c6ddde;
+  justify-content: center;
 `;
 
 const ListItem = styled('li')(({ selected }: any) => `
   padding: 10px 15px;
-  border-bottom: solid 1px #c6ddde;
   background-color: ${selected && theme.color.primaryLight};
   color: ${selected ? theme.color.primaryFont : theme.color.secondaryFont};
   cursor: pointer;

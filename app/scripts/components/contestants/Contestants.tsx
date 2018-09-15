@@ -2,15 +2,18 @@ import * as React from 'react';
 import { getContestants } from '../../api/api-gateway';
 import { List } from '../list/List';
 import styled from '../../../../node_modules/react-emotion';
+import { Contestant } from '../../models/types';
+import ContestantProfile from './ContestantProfile';
 
 interface ContestantsState {
-  activeContestant?: any;
-  contestants: any[];
+  activeContestant?: Contestant;
+  contestants: Contestant[];
 }
 
 const MainWrapper = styled('div')`
   flex: 1;
   display: flex;
+  flex-direction: column;
 `;
 
 export class Contestants extends React.Component<{}, ContestantsState> {
@@ -37,6 +40,9 @@ export class Contestants extends React.Component<{}, ContestantsState> {
           onClick={this.setActive}
           active={activeContestant}
         />
+        {activeContestant
+          ? <ContestantProfile contestant={activeContestant} />
+          : 'Select a contestant!'}
       </MainWrapper>
     );
   }
