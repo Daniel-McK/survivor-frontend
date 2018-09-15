@@ -25,6 +25,7 @@ const ProfilePic = styled('img')`
 
 const ProfileName = styled('div')`
   padding: 10px;
+  font-size: 1.2rem;
 `;
 
 interface ContestantProfileProps {
