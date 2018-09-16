@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'react-emotion';
 import { Contestant } from '../../models/types';
+import { withPoints, WithPointsProps } from '../../utils/withPoints';
 
 const Column = styled('div')`
   display: flex;
@@ -28,15 +29,15 @@ const ProfileName = styled('div')`
   font-size: 1.2rem;
 `;
 
-interface ContestantProfileProps {
+interface BaseContestantProfileProps {
   contestant: Contestant;
 }
+type ContestantProfileProps = BaseContestantProfileProps & WithPointsProps;
 
-export default class ContestantProfile extends React.Component<ContestantProfileProps, {}> {
+class ContestantProfile extends React.Component<ContestantProfileProps, {}> {
 
   public render() {
     const { contestant } = this.props;
-
      return (
        <Column>
         <ProfileCard>
@@ -48,3 +49,5 @@ export default class ContestantProfile extends React.Component<ContestantProfile
   }
 
 }
+
+export default withPoints('contestant.id')(ContestantProfile);
