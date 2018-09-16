@@ -2,6 +2,11 @@ import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import App from './scripts/components/general/App';
 import { injectGlobal } from 'emotion';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { survivorStore } from './scripts/store';
+
+const store = createStore(survivorStore);
 
 injectGlobal`
   html, body {
@@ -17,6 +22,8 @@ injectGlobal`
 `;
 
 ReactDOM.render(
-  <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );

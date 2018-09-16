@@ -10,3 +10,7 @@ export async function getContestants(seasonId: string) {
 export async function getEpisodes(seasonId: string) {
   return axios.get(`${SEASONS_PATH}/${seasonId}/episodes`);
 }
+
+export async function getPoints(seasonId: string) {
+  return axios.get(`${SEASONS_PATH}/${seasonId}/points`);
+}
