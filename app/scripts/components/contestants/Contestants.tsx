@@ -1,13 +1,15 @@
 import * as React from 'react';
-import { getContestants } from '../../api/api-gateway';
 import ContestantList from './ContestantList';
 import styled from '../../../../node_modules/react-emotion';
 import { Contestant } from '../../models/types';
 import ContestantProfile from './ContestantProfile';
 
+interface ContestantsProps {
+  contestants?: Contestant[];
+}
+
 interface ContestantsState {
   activeContestant?: Contestant;
-  contestants: Contestant[];
 }
 
 const MainWrapper = styled('div')`
@@ -16,22 +18,17 @@ const MainWrapper = styled('div')`
   flex-direction: column;
 `;
 
-export class Contestants extends React.Component<{}, ContestantsState> {
-
+export default class Contestants extends React.Component<ContestantsProps, ContestantsState> {
   constructor(props: {}) {
     super(props);
     this.state = {
-      activeContestant: null,
-      contestants: []
+      activeContestant: null
     };
   }
 
-  public componentDidMount() {
-    this.getContestants();
-  }
-
   public render() {
-    const { activeContestant, contestants } = this.state;
+    const { activeContestant } = this.state;
+    const { contestants } = this.props;
     return (
       <MainWrapper>
         <ContestantList
@@ -39,23 +36,18 @@ export class Contestants extends React.Component<{}, ContestantsState> {
           onClick={this.setActive}
           active={activeContestant}
         />
-        {activeContestant
-          ? <ContestantProfile contestant={activeContestant} />
-          : 'Select a contestant!'}
+        {activeContestant ? (
+          <ContestantProfile contestant={activeContestant} />
+        ) : (
+          'Select a contestant!'
+        )}
       </MainWrapper>
     );
   }
 
-  private setActive = (contestant) => {
+  private setActive = contestant => {
     this.setState({
       activeContestant: contestant
     });
-  }
-
-  private async getContestants() {
-    const response = await getContestants('season-37');
-    this.setState({
-      contestants: response.data
-    });
-  }
+  };
 }

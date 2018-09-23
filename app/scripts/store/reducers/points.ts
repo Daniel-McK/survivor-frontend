@@ -3,7 +3,7 @@ import { Point } from '../../models/types';
 
 export type PointsState = Point[];
 
-export function points(state = [], action) {
+export function points(state = [], action): PointsState {
   switch (action.type) {
     case LOAD_POINTS:
       return action.points;
