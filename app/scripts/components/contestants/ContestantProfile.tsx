@@ -30,7 +30,7 @@ const ProfilePic = styled('img')`
   height: 250px;
 `;
 
-const ProfileName = styled('div')`
+const ProfileLabel = styled('div')`
   padding-top: 10px;
   font-size: 1.2rem;
 
@@ -52,8 +52,9 @@ class ContestantProfile extends React.Component<ContestantProfileProps, {}> {
       <CollapsingRow>
         <ProfileCard>
           <ProfilePic src={contestant.imageUrl} alt={contestant.name} />
-          <ProfileName>{contestant.name}</ProfileName>
-          <ProfileName>{totalPoints} points</ProfileName>
+          <ProfileLabel>{contestant.name}</ProfileLabel>
+          <ProfileLabel>Rank: {contestant.rank}</ProfileLabel>
+          <ProfileLabel>{totalPoints} points</ProfileLabel>
         </ProfileCard>
         <PointsList points={points} showName={false} />
       </CollapsingRow>

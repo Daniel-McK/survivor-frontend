@@ -1,14 +1,15 @@
 import * as React from 'react';
+import { isEmpty } from 'lodash';
 import { Header } from './Header';
 import styled from 'react-emotion';
 import { AppTab } from '../../models/structure';
 import Contestants from '../contestants/Contestants';
 import { Episodes } from '../episodes/Episodes';
 import { connect } from 'react-redux';
-import { DDBPoint, Contestant } from '../../models/types';
+import { DDBPoint, Contestant, Point } from '../../models/types';
 import { createLoadPointsAction } from '../../store/actions/points';
 import { getPoints, getContestants } from '../../api/api-gateway';
-import { createLoadContestantsAction } from '../../store/actions/contestants';
+import { createLoadContestantsAction, createRankContestantsAction } from '../../store/actions/contestants';
 import { ReduxState } from '../../store';
 
 const AppWrapper = styled('div')`
@@ -20,10 +21,12 @@ const AppWrapper = styled('div')`
 interface AppProps {
   // redux state
   contestants?: Contestant[];
+  points?: Point[];
 
   // redux actions
   loadPoints?: (points: DDBPoint[]) => void;
   loadContestants?: (contestants: Contestant[]) => void;
+  rankContestants?: (point: Point[]) => void;
 }
 
 interface AppState {
@@ -41,6 +44,12 @@ class App extends React.Component<AppProps, AppState> {
   public componentDidMount() {
     this.fetchContestants();
     this.fetchPoints();
+  }
+
+  public componentWillReceiveProps(newProps: AppProps) {
+    if (!this.hasLoaded(this.props) && this.hasLoaded(newProps)) {
+      this.props.rankContestants(newProps.points);
+    }
   }
 
   public render() {
@@ -80,18 +89,24 @@ class App extends React.Component<AppProps, AppState> {
     const response = await getContestants('season-37');
     this.props.loadContestants(response.data);
   };
+
+  private hasLoaded = (props: AppProps) => {
+    return !isEmpty(props.contestants) && !isEmpty(props.points);
+  }
 }
 
 function mapStateToProps(state: ReduxState) {
   return {
-    contestants: state.contestants
+    contestants: state.contestants,
+    points: state.points
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     loadContestants: (contestants: Contestant[]) => dispatch(createLoadContestantsAction(contestants)),
-    loadPoints: (points: DDBPoint[]) => dispatch(createLoadPointsAction(points))
+    loadPoints: (points: DDBPoint[]) => dispatch(createLoadPointsAction(points)),
+    rankContestants: (points: Point[]) => dispatch(createRankContestantsAction(points))
   };
 }
 
