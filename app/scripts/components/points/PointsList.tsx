@@ -3,6 +3,7 @@ import { groupBy, map, sumBy } from 'lodash';
 import { Point } from '../../models/types';
 import styled from 'react-emotion';
 import theme from '../../../styles/theme';
+import { SMALL_SCREEN } from '../../../styles/responsive';
 
 interface PointsListProps {
   points: Point[];
@@ -17,6 +18,10 @@ interface PointsListState {
 
 const ListWrapper = styled('div')`
   flex: 1;
+  ${SMALL_SCREEN} {
+    margin-left: 16px;
+    width: 100%;
+  }
 `;
 
 const PointGroup = styled('div')`
