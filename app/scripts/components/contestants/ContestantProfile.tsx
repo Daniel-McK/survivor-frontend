@@ -2,11 +2,10 @@ import * as React from 'react';
 import styled from 'react-emotion';
 import { Contestant } from '../../models/types';
 import { withPoints, WithPointsProps } from '../../utils/withPoints';
+import PointsList from '../points/PointsList';
 
-const Column = styled('div')`
+const Row = styled('div')`
   display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
 
 const ProfileCard = styled('div')`
@@ -39,12 +38,13 @@ class ContestantProfile extends React.Component<ContestantProfileProps, {}> {
   public render() {
     const { contestant } = this.props;
      return (
-       <Column>
+       <Row>
         <ProfileCard>
           <ProfilePic src={contestant.imageUrl} alt={contestant.name} />
           <ProfileName>{contestant.name}</ProfileName>
         </ProfileCard>
-       </Column>
+        <PointsList points={this.props.points} showName={false} />
+       </Row>
      );
   }
 
