@@ -9,13 +9,14 @@ import { connect } from 'react-redux';
 import { DDBPoint, Contestant, Point } from '../../models/types';
 import { createLoadPointsAction } from '../../store/actions/points';
 import { getPoints, getContestants } from '../../api/api-gateway';
-import { createLoadContestantsAction, createRankContestantsAction } from '../../store/actions/contestants';
+import {
+  createLoadContestantsAction,
+  createRankContestantsAction
+} from '../../store/actions/contestants';
 import { ReduxState } from '../../store';
 
-const AppWrapper = styled('div')`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+const Scrollable = styled('div')`
+  overflow-y: auto;
 `;
 
 interface AppProps {
@@ -54,13 +55,13 @@ class App extends React.Component<AppProps, AppState> {
 
   public render() {
     return (
-      <AppWrapper>
+      <main>
         <Header
           onTabChange={this.updateSelectedTab}
           selectedTab={this.state.selectedTab}
         />
-        {this.renderMain()}
-      </AppWrapper>
+        <Scrollable>{this.renderMain()}</Scrollable>
+      </main>
     );
   }
 
@@ -92,7 +93,7 @@ class App extends React.Component<AppProps, AppState> {
 
   private hasLoaded = (props: AppProps) => {
     return !isEmpty(props.contestants) && !isEmpty(props.points);
-  }
+  };
 }
 
 function mapStateToProps(state: ReduxState) {
@@ -104,10 +105,16 @@ function mapStateToProps(state: ReduxState) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadContestants: (contestants: Contestant[]) => dispatch(createLoadContestantsAction(contestants)),
-    loadPoints: (points: DDBPoint[]) => dispatch(createLoadPointsAction(points)),
-    rankContestants: (points: Point[]) => dispatch(createRankContestantsAction(points))
+    loadContestants: (contestants: Contestant[]) =>
+      dispatch(createLoadContestantsAction(contestants)),
+    loadPoints: (points: DDBPoint[]) =>
+      dispatch(createLoadPointsAction(points)),
+    rankContestants: (points: Point[]) =>
+      dispatch(createRankContestantsAction(points))
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

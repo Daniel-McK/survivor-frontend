@@ -30,7 +30,11 @@ const PointGroup = styled('div')`
   background-color: ${theme.color.white};
   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
     0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  margin: 16px 16px 0 0;
+  margin: 0 16px 16px 0;
+
+  ${SMALL_SCREEN} {
+    margin-bottom: 16px;
+  }
 `;
 
 const PointHeader = styled('div')`
@@ -86,7 +90,7 @@ class PointsList extends React.Component<PointsListProps, PointsListState> {
               {expanded && (
                 <PointBreakdown>
                   {map(pointsInEpisode, (point: Point) => (
-                    <PointRow>
+                    <PointRow key={point.id}>
                       <div>{point.pointType.name}</div>
                       <div>{point.pointType.value} points</div>
                     </PointRow>

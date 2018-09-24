@@ -13,7 +13,7 @@ const ListScroller = styled('div')`
 const ListWrapper = styled('ul')`
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 4px;
   display: flex;
   border-bottom: solid 1px #c6ddde;
 `;
@@ -24,7 +24,7 @@ const ListItem = styled('li')(({ selected }: any) => `
   display: flex;
   flex-direction: column;
   position: relative;
-  margin: 10px 5px;
+  margin: 4px;
 
   &:hover > pre {
     background-color: ${selected ? theme.color.primaryLight : '#c6ddde'}
