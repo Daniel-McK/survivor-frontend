@@ -25,6 +25,8 @@ const ListItem = styled('li')(({ selected }: any) => `
   flex-direction: column;
   position: relative;
   margin: 4px;
+  overflow: hidden;
+  min-width: 100px;
 
   &:hover > pre {
     background-color: ${selected ? theme.color.primaryLight : '#c6ddde'}
@@ -45,6 +47,16 @@ const FloatingName = styled('pre')(({ selected }: any) => `
   opacity: 0.9;
 `);
 
+const Badge = styled('div')`
+  position: absolute;
+  width: 50px;
+  left: -13px;
+  top: 2px;
+  background-color: ${theme.color.primaryDark};
+  color: white;
+  transform: rotate(-45deg);
+`;
+
 interface ContestantListProps {
   options: Contestant[];
   onClick: (option: any) => void;
@@ -58,12 +70,13 @@ export default class ContestantList extends React.Component<ContestantListProps,
     return (
       <ListScroller>
         <ListWrapper>
-          {options.map((contestant, index) => (
+          {options.map((contestant) => (
             <ListItem
               onClick={onClick.bind(null, contestant)}
               key={contestant.id}
               selected={active === contestant}
             >
+              <Badge>{contestant.rank}</Badge>
               <img src={contestant.imageUrl} width="100" height="125" />
               <FloatingName selected={active === contestant}>{replace(contestant.name, ' ', '\r\n')}</FloatingName>
             </ListItem>
