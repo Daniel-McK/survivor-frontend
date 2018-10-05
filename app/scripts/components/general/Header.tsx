@@ -5,7 +5,8 @@ import { AppTab } from '../../models/structure';
 
 const tabs = [
   { tabId: AppTab.Contestants, label: 'Contestants' },
-  { tabId: AppTab.Episodes, label: 'Episodes' }
+  // { tabId: AppTab.Episodes, label: 'Episodes' }
+  { tabId: AppTab.Users, label: 'Users' }
 ];
 
 const HeaderWrapper = styled('div')`

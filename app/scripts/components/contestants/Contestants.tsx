@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ContestantList from './ContestantList';
+import PhotoList from './PhotoList';
 import styled from '../../../../node_modules/react-emotion';
 import { Contestant } from '../../models/types';
 import ContestantProfile from './ContestantProfile';
@@ -31,7 +31,7 @@ export default class Contestants extends React.Component<ContestantsProps, Conte
     const { contestants } = this.props;
     return (
       <MainWrapper>
-        <ContestantList
+        <PhotoList
           options={contestants || []}
           onClick={this.setActive}
           active={activeContestant}

@@ -26,3 +26,11 @@ export interface Point {
   episodeId: string;
   pointType: PointType;
 }
+
+export interface User {
+  firstName: string;
+  lastName: string;
+  username: string;
+  totalPoints?: number; // patched client side
+  rank?: number; // patched client side
+}

@@ -1,3 +1,5 @@
 export const LOAD_POINTS = 'LOAD_POINTS';
 export const LOAD_CONTESTANTS = 'LAOD_CONTESTANTS';
+export const LOAD_USERS = 'LOAD_USERS';
 export const RANK_CONTESTANTS = 'RANK_CONTESTANTS';
+

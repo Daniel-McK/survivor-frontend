@@ -6,14 +6,16 @@ import { AppTab } from '../../models/structure';
 import Contestants from '../contestants/Contestants';
 import { Episodes } from '../episodes/Episodes';
 import { connect } from 'react-redux';
-import { DDBPoint, Contestant, Point } from '../../models/types';
+import { DDBPoint, Contestant, Point, User } from '../../models/types';
 import { createLoadPointsAction } from '../../store/actions/points';
-import { getPoints, getContestants } from '../../api/api-gateway';
+import { getPoints, getContestants, getUsers } from '../../api/api-gateway';
 import {
   createLoadContestantsAction,
   createRankContestantsAction
 } from '../../store/actions/contestants';
 import { ReduxState } from '../../store';
+import { createLoadUsersAction } from '../../store/actions/users';
+import { Users } from '../users/Users';
 
 const Scrollable = styled('div')`
   overflow-y: auto;
@@ -23,10 +25,12 @@ interface AppProps {
   // redux state
   contestants?: Contestant[];
   points?: Point[];
+  users?: User[];
 
   // redux actions
   loadPoints?: (points: DDBPoint[]) => void;
   loadContestants?: (contestants: Contestant[]) => void;
+  loadUsers?: (users: User[]) => void;
   rankContestants?: (point: Point[]) => void;
 }
 
@@ -45,6 +49,7 @@ class App extends React.Component<AppProps, AppState> {
   public componentDidMount() {
     this.fetchContestants();
     this.fetchPoints();
+    this.fetchUsers();
   }
 
   public componentWillReceiveProps(newProps: AppProps) {
@@ -67,8 +72,10 @@ class App extends React.Component<AppProps, AppState> {
 
   private renderMain = () => {
     switch (this.state.selectedTab) {
-      case AppTab.Episodes:
-        return <Episodes />;
+      // case AppTab.Episodes:
+      //   return <Episodes />;
+      case AppTab.Users:
+        return <Users users={this.props.users}/>;
       case AppTab.Contestants:
       default:
         return <Contestants contestants={this.props.contestants} />;
@@ -91,6 +98,11 @@ class App extends React.Component<AppProps, AppState> {
     this.props.loadContestants(response.data);
   };
 
+  private fetchUsers = async () => {
+    const response = await getUsers();
+    this.props.loadUsers(response.data);
+  };
+
   private hasLoaded = (props: AppProps) => {
     return !isEmpty(props.contestants) && !isEmpty(props.points);
   };
@@ -99,7 +111,8 @@ class App extends React.Component<AppProps, AppState> {
 function mapStateToProps(state: ReduxState) {
   return {
     contestants: state.contestants,
-    points: state.points
+    points: state.points,
+    users: state.users
   };
 }
 
@@ -109,6 +122,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(createLoadContestantsAction(contestants)),
     loadPoints: (points: DDBPoint[]) =>
       dispatch(createLoadPointsAction(points)),
+    loadUsers: (users: User[]) =>
+      dispatch(createLoadUsersAction(users)),
     rankContestants: (points: Point[]) =>
       dispatch(createRankContestantsAction(points))
   };

@@ -57,28 +57,35 @@ const Badge = styled('div')`
   transform: rotate(-45deg);
 `;
 
-interface ContestantListProps {
-  options: Contestant[];
-  onClick: (option: any) => void;
-  active?: Contestant;
+export interface PhotoOption {
+  id: string;
+  rank?: number;
+  imageUrl: string;
+  name: string;
 }
 
-export default class ContestantList extends React.Component<ContestantListProps, {}> {
+interface PhotoListProps {
+  options: PhotoOption[];
+  onClick: (option: any) => void;
+  active?: PhotoOption;
+}
+
+export default class PhotoList extends React.Component<PhotoListProps, {}> {
   public render() {
     const { active, onClick, options } = this.props;
 
     return (
       <ListScroller>
         <ListWrapper>
-          {options.map((contestant) => (
+          {options.map((option: PhotoOption) => (
             <ListItem
-              onClick={onClick.bind(null, contestant)}
-              key={contestant.id}
-              selected={active === contestant}
+              onClick={onClick.bind(null, option)}
+              key={option.id}
+              selected={active && active.id === option.id}
             >
-              <Badge>{contestant.rank}</Badge>
-              <img src={contestant.imageUrl} width="100" height="125" />
-              <FloatingName selected={active === contestant}>{replace(contestant.name, ' ', '\r\n')}</FloatingName>
+              <Badge>{option.rank}</Badge>
+              <img src={option.imageUrl} width="100" height="125" />
+              <FloatingName selected={active && active.id === option.id}>{replace(option.name, ' ', '\r\n')}</FloatingName>
             </ListItem>
           ))}
         </ListWrapper>
