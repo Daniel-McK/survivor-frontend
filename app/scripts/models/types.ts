@@ -34,4 +34,5 @@ export interface User {
   username: string;
   totalPoints?: number; // patched client side
   rank?: number; // patched client side
+  contestantIds?: string[];
 }

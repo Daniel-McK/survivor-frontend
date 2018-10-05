@@ -3,6 +3,9 @@ import styled from '../../../../node_modules/react-emotion';
 import { find, map } from 'lodash';
 import { User } from '../../models/types';
 import PhotoList, { PhotoOption } from '../contestants/PhotoList';
+import ProfileCard from '../common/ProfileCard';
+import { getFullName, JEFF_URL } from '../../utils/user';
+import UserProfile from './UserProfile';
 
 interface UsersProps {
   users?: User[];
@@ -39,7 +42,7 @@ export class Users extends React.Component<UsersProps, UsersState> {
         onClick={this.setActive}
         active={activeUser}
       />
-      {selectedUser ? selectedUser.firstName : 'Select a user!'}
+      {selectedUser ? <UserProfile user={selectedUser} /> : 'Select a user!'}
     </MainWrapper>
     );
   }
@@ -47,8 +50,8 @@ export class Users extends React.Component<UsersProps, UsersState> {
   private transformUserToPhotoOption = (user: User): PhotoOption => {
     return {
       id: user.username,
-      imageUrl: 'https://wwwimage-secure.cbsstatic.com/thumbnails/photos/w270/cast/4048f07cd7d2b184_probst_800.jpg',
-      name: `${user.firstName} ${user.lastName}`,
+      imageUrl: JEFF_URL,
+      name: getFullName(user),
       rank: user.rank
     };
   }

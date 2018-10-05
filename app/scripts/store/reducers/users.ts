@@ -25,13 +25,15 @@ function rankUsers(users: User[], contestants: Contestant[], points: Point[]): U
   let previousScore = Number.MAX_SAFE_INTEGER;
   let previousRank = 1;
   return map(orderedUsers, (user: User, index: number) => {
+    const relevantContestants = filter(contestants, (contestant: Contestant) => contestant.userId === user.username);
     if (user.totalPoints < previousScore) {
       previousRank = index + 1;
     }
     previousScore = user.totalPoints;
     return {
       ...user,
-      rank: previousRank
+      rank: previousRank,
+      contestantIds: map(relevantContestants, (contestant: Contestant) => contestant.id)
     };
   }) as any;
 }
