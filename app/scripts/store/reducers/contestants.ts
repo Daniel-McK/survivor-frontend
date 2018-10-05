@@ -1,5 +1,5 @@
 import { filter, forEach, map, orderBy, sumBy } from 'lodash';
-import { LOAD_CONTESTANTS, RANK_CONTESTANTS } from '../actions/types';
+import { LOAD_CONTESTANTS, RANK_CONTESTANTS_AND_USERS } from '../actions/types';
 import { Contestant, Point } from '../../models/types';
 
 export type ContestantsState = Contestant[];
@@ -8,7 +8,7 @@ export function contestants(state = [], action): ContestantsState {
   switch (action.type) {
     case LOAD_CONTESTANTS:
       return action.contestants;
-    case RANK_CONTESTANTS:
+    case RANK_CONTESTANTS_AND_USERS:
       return rankContestants(state, action.points);
     default:
       return state;

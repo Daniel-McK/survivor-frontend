@@ -31,7 +31,7 @@ interface AppProps {
   loadPoints?: (points: DDBPoint[]) => void;
   loadContestants?: (contestants: Contestant[]) => void;
   loadUsers?: (users: User[]) => void;
-  rankContestants?: (point: Point[]) => void;
+  rankContestants?: (contestants: Contestant[], points: Point[]) => void;
 }
 
 interface AppState {
@@ -54,7 +54,7 @@ class App extends React.Component<AppProps, AppState> {
 
   public componentWillReceiveProps(newProps: AppProps) {
     if (!this.hasLoaded(this.props) && this.hasLoaded(newProps)) {
-      this.props.rankContestants(newProps.points);
+      this.props.rankContestants(newProps.contestants, newProps.points);
     }
   }
 
@@ -104,7 +104,7 @@ class App extends React.Component<AppProps, AppState> {
   };
 
   private hasLoaded = (props: AppProps) => {
-    return !isEmpty(props.contestants) && !isEmpty(props.points);
+    return !isEmpty(props.contestants) && !isEmpty(props.points) && !isEmpty(props.users);
   };
 }
 
@@ -124,8 +124,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(createLoadPointsAction(points)),
     loadUsers: (users: User[]) =>
       dispatch(createLoadUsersAction(users)),
-    rankContestants: (points: Point[]) =>
-      dispatch(createRankContestantsAction(points))
+    rankContestants: (contestants: Contestant[], points: Point[]) =>
+      dispatch(createRankContestantsAction(contestants, points))
   };
 }
 

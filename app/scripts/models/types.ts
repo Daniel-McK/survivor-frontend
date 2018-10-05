@@ -3,6 +3,7 @@ export interface Contestant {
   id: string;
   name: string;
   imageUrl: string;
+  userId?: string;
   totalPoints?: number; // patch client side
   rank?: number; // patched client side
 }

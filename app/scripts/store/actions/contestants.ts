@@ -1,4 +1,4 @@
-import { LOAD_CONTESTANTS, RANK_CONTESTANTS } from './types';
+import { LOAD_CONTESTANTS, RANK_CONTESTANTS_AND_USERS } from './types';
 import { Contestant, Point } from '../../models/types';
 
 export function createLoadContestantsAction(contestants: Contestant[]) {
@@ -8,9 +8,10 @@ export function createLoadContestantsAction(contestants: Contestant[]) {
   };
 }
 
-export function createRankContestantsAction(points: Point[]) {
+export function createRankContestantsAction(contestants: Contestant[], points: Point[]) {
   return {
-    type: RANK_CONTESTANTS,
+    type: RANK_CONTESTANTS_AND_USERS,
+    contestants,
     points
   };
 }
