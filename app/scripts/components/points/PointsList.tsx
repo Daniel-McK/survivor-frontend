@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { groupBy, map, sumBy } from 'lodash';
+import { groupBy, keys, map, orderBy, sumBy } from 'lodash';
 import { Point } from '../../models/types';
 import styled from 'react-emotion';
 import theme from '../../../styles/theme';
@@ -8,12 +8,6 @@ import { SMALL_SCREEN } from '../../../styles/responsive';
 interface PointsListProps {
   points: Point[];
   showName: boolean;
-}
-
-interface PointsListState {
-  episodeIsExpanded: {
-    [episodeId: string]: boolean;
-  };
 }
 
 const ListWrapper = styled('div')`
@@ -38,14 +32,9 @@ const PointGroup = styled('div')`
 `;
 
 const PointHeader = styled('div')`
-  cursor: pointer;
   display: flex;
   justify-content: space-between;
   padding: 10px 15px;
-
-  &:hover {
-    background-color: #c6ddde;
-  }
 `;
 
 const PointBreakdown = styled('div')`
@@ -61,13 +50,7 @@ const PointRow = styled('div')`
   }
 `;
 
-class PointsList extends React.Component<PointsListProps, PointsListState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      episodeIsExpanded: {}
-    };
-  }
+class PointsList extends React.Component<PointsListProps, {}> {
 
   public render() {
     const { points } = this.props;
@@ -76,43 +59,29 @@ class PointsList extends React.Component<PointsListProps, PointsListState> {
 
     return (
       <ListWrapper>
-        {map(pointsByEpisode, (pointsInEpisode: Point[], episodeId: string) => {
+        {map(orderBy(keys(pointsByEpisode), (x) => x), (episodeId: string) => {
+          const pointsInEpisode: Point[] = pointsByEpisode[episodeId];
           const total = sumBy(pointsInEpisode, 'pointType.value');
-          const expanded = this.state.episodeIsExpanded[episodeId];
           return (
             <PointGroup key={episodeId}>
-              <PointHeader
-                onClick={this.toggleEpisodeVisible.bind(null, episodeId)}
-              >
+              <PointHeader>
                 <div>{episodeId}</div>
                 <div>{total} points</div>
               </PointHeader>
-              {expanded && (
-                <PointBreakdown>
-                  {map(pointsInEpisode, (point: Point) => (
-                    <PointRow key={point.id}>
-                      <div>{point.pointType.name}</div>
-                      <div>{point.pointType.value} points</div>
-                    </PointRow>
-                  ))}
-                </PointBreakdown>
-              )}
+              <PointBreakdown>
+                {map(pointsInEpisode, (point: Point) => (
+                  <PointRow key={point.id}>
+                    <div>{point.pointType.name}</div>
+                    <div>{point.pointType.value} points</div>
+                  </PointRow>
+                ))}
+              </PointBreakdown>
             </PointGroup>
           );
         })}
       </ListWrapper>
     );
   }
-
-  private toggleEpisodeVisible = (episodeId: string) => {
-    const { episodeIsExpanded } = this.state;
-    this.setState({
-      episodeIsExpanded: {
-        ...episodeIsExpanded,
-        [episodeId]: !episodeIsExpanded[episodeId]
-      }
-    });
-  };
 }
 
 export default PointsList;
