@@ -75,10 +75,15 @@ class App extends React.Component<AppProps, AppState> {
       // case AppTab.Episodes:
       //   return <Episodes />;
       case AppTab.Users:
-        return <Users users={this.props.users}/>;
+        return <Users users={this.props.users} />;
       case AppTab.Contestants:
       default:
-        return <Contestants contestants={this.props.contestants} />;
+        return (
+          <Contestants
+            contestants={this.props.contestants}
+            users={this.props.users}
+          />
+        );
     }
   };
 
@@ -104,7 +109,11 @@ class App extends React.Component<AppProps, AppState> {
   };
 
   private hasLoaded = (props: AppProps) => {
-    return !isEmpty(props.contestants) && !isEmpty(props.points) && !isEmpty(props.users);
+    return (
+      !isEmpty(props.contestants) &&
+      !isEmpty(props.points) &&
+      !isEmpty(props.users)
+    );
   };
 }
 
@@ -122,8 +131,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(createLoadContestantsAction(contestants)),
     loadPoints: (points: DDBPoint[]) =>
       dispatch(createLoadPointsAction(points)),
-    loadUsers: (users: User[]) =>
-      dispatch(createLoadUsersAction(users)),
+    loadUsers: (users: User[]) => dispatch(createLoadUsersAction(users)),
     rankContestants: (contestants: Contestant[], points: Point[]) =>
       dispatch(createRankContestantsAction(contestants, points))
   };

@@ -1,11 +1,12 @@
 import * as React from 'react';
 import PhotoList from './PhotoList';
 import styled from '../../../../node_modules/react-emotion';
-import { Contestant } from '../../models/types';
+import { Contestant, User } from '../../models/types';
 import ContestantProfile from './ContestantProfile';
 
 interface ContestantsProps {
   contestants?: Contestant[];
+  users?: User[];
 }
 
 interface ContestantsState {
@@ -28,7 +29,7 @@ export default class Contestants extends React.Component<ContestantsProps, Conte
 
   public render() {
     const { activeContestant } = this.state;
-    const { contestants } = this.props;
+    const { contestants, users } = this.props;
     return (
       <MainWrapper>
         <PhotoList
@@ -37,7 +38,7 @@ export default class Contestants extends React.Component<ContestantsProps, Conte
           active={activeContestant}
         />
         {activeContestant ? (
-          <ContestantProfile contestant={activeContestant} />
+          <ContestantProfile contestant={activeContestant} users={users} />
         ) : (
           'Select a contestant!'
         )}

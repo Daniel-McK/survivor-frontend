@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'react-emotion';
 import { getPlaceTextFromRank } from '../../utils/format';
+import { User } from '../../models/types';
 
 const ProfileCardWrapper = styled('div')`
   display: flex;
@@ -32,16 +33,18 @@ interface ProfileCardProps {
   name: string;
   rank?: number;
   totalPoints?: number;
+  user?: User;
 }
 
 const ProfileCard: React.StatelessComponent<ProfileCardProps> = (props: ProfileCardProps) => {
-  const { imageUrl, name, rank, totalPoints} = props;
+  const { imageUrl, name, rank, totalPoints, user } = props;
   return (
     <ProfileCardWrapper>
       <ProfilePic src={imageUrl} alt={name} />
       <ProfileLabel>{name}</ProfileLabel>
       <ProfileLabel>{getPlaceTextFromRank(rank)}</ProfileLabel>
       <ProfileLabel>{totalPoints} points</ProfileLabel>
+      {user && <ProfileLabel>{user.firstName} {user.lastName}</ProfileLabel>}
     </ProfileCardWrapper>
   );
 };
