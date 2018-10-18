@@ -55,13 +55,19 @@ const Badge = styled('div')`
   background-color: ${theme.color.primaryDark};
   color: white;
   transform: rotate(-45deg);
+  z-index: 1;
 `;
+
+const Image = styled('img')(({ eliminated }: any) => `
+  ${ eliminated ? 'filter: grayscale(100%);' : ''}
+`);
 
 export interface PhotoOption {
   id: string;
   rank?: number;
   imageUrl: string;
   name: string;
+  eliminated?: string;
 }
 
 interface PhotoListProps {
@@ -84,7 +90,7 @@ export default class PhotoList extends React.Component<PhotoListProps, {}> {
               selected={active && active.id === option.id}
             >
               <Badge>{option.rank}</Badge>
-              <img src={option.imageUrl} width="100" height="125" />
+              <Image src={option.imageUrl} width="100" height="125" eliminated={!!option.eliminated} />
               <FloatingName selected={active && active.id === option.id}>{replace(option.name, ' ', '\r\n')}</FloatingName>
             </ListItem>
           ))}

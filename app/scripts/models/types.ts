@@ -5,7 +5,8 @@ export interface Contestant {
   imageUrl: string;
   userId?: string;
   totalPoints?: number; // patch client side
-  rank?: number; // patched client side
+  rank?: number; // patched client side,
+  eliminated?: string;
 }
 
 export interface PointType {
