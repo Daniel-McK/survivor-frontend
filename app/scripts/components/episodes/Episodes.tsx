@@ -44,7 +44,7 @@ export class Episodes extends React.Component<{}, EpisodesState> {
   }
 
   private async getUsers() {
-    const response = await getEpisodes('season-37');
+    const response = await getEpisodes('season-38');
     this.setState({
       episodes: response.data
     });

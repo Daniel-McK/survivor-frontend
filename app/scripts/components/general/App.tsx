@@ -94,12 +94,12 @@ class App extends React.Component<AppProps, AppState> {
   };
 
   private fetchPoints = async () => {
-    const response = await getPoints('season-37');
+    const response = await getPoints('season-38');
     this.props.loadPoints(response.data);
   };
 
   private fetchContestants = async () => {
-    const response = await getContestants('season-37');
+    const response = await getContestants('season-38');
     this.props.loadContestants(response.data);
   };
 
