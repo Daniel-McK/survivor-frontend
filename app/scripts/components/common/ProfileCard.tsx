@@ -34,10 +34,11 @@ interface ProfileCardProps {
   rank?: number;
   totalPoints?: number;
   user?: User;
+  additionalInfo?: string;
 }
 
 const ProfileCard: React.StatelessComponent<ProfileCardProps> = (props: ProfileCardProps) => {
-  const { imageUrl, name, rank, totalPoints, user } = props;
+  const { additionalInfo, imageUrl, name, rank, totalPoints, user } = props;
   return (
     <ProfileCardWrapper>
       <ProfilePic src={imageUrl} alt={name} />
@@ -45,6 +46,7 @@ const ProfileCard: React.StatelessComponent<ProfileCardProps> = (props: ProfileC
       <ProfileLabel>{getPlaceTextFromRank(rank)}</ProfileLabel>
       <ProfileLabel>{totalPoints || 0} points</ProfileLabel>
       {user && <ProfileLabel>{user.firstName} {user.lastName}</ProfileLabel>}
+      {additionalInfo && <ProfileLabel>{additionalInfo}</ProfileLabel>}
     </ProfileCardWrapper>
   );
 };

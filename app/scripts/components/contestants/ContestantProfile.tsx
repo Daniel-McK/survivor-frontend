@@ -23,6 +23,7 @@ class ContestantProfile extends React.Component<ContestantProfileProps, {}> {
           rank={contestant.rank}
           totalPoints={contestant.totalPoints}
           user={find(users, { username: contestant.userId }) as any}
+          additionalInfo={`${contestant.tribeName} Tribe`}
         />
         <PointsList points={points} showName={false} />
       </CollapsingRow>

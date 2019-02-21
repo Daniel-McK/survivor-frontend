@@ -7,6 +7,7 @@ export interface Contestant {
   totalPoints?: number; // patch client side
   rank?: number; // patched client side,
   eliminated?: string;
+  tribeName?: string;
 }
 
 export interface PointType {
