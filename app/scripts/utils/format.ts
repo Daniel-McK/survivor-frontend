@@ -5,6 +5,9 @@ const SUFFIX_EXCEPTIONS = {
 };
 
 export function getPlaceTextFromRank(rank: number) {
+  if (!rank) {
+    return 'Tied';
+  }
   let suffix = '';
   if (SUFFIX_EXCEPTIONS[rank]) {
     suffix = SUFFIX_EXCEPTIONS[rank];

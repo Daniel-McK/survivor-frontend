@@ -43,7 +43,7 @@ const ProfileCard: React.StatelessComponent<ProfileCardProps> = (props: ProfileC
       <ProfilePic src={imageUrl} alt={name} />
       <ProfileLabel>{name}</ProfileLabel>
       <ProfileLabel>{getPlaceTextFromRank(rank)}</ProfileLabel>
-      <ProfileLabel>{totalPoints} points</ProfileLabel>
+      <ProfileLabel>{totalPoints || 0} points</ProfileLabel>
       {user && <ProfileLabel>{user.firstName} {user.lastName}</ProfileLabel>}
     </ProfileCardWrapper>
   );
