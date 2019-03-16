@@ -9,46 +9,29 @@ interface ContestantsProps {
   users?: User[];
 }
 
-interface ContestantsState {
-  activeContestant?: Contestant;
-}
-
 const MainWrapper = styled('div')`
   flex: 1;
   display: flex;
   flex-direction: column;
 `;
 
-export default class Contestants extends React.Component<ContestantsProps, ContestantsState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      activeContestant: null
-    };
-  }
+const Contestants: React.SFC<ContestantsProps> = props => {
+  const [activeContestant, setActiveContestant] = React.useState<Contestant>(null);
+  const { contestants, users } = props;
+  return (
+    <MainWrapper>
+      <PhotoList
+        options={contestants || []}
+        onClick={setActiveContestant}
+        active={activeContestant}
+      />
+      {activeContestant ? (
+        <ContestantProfile contestant={activeContestant} users={users} />
+      ) : (
+        'Select a contestant!'
+      )}
+    </MainWrapper>
+  );
+};
 
-  public render() {
-    const { activeContestant } = this.state;
-    const { contestants, users } = this.props;
-    return (
-      <MainWrapper>
-        <PhotoList
-          options={contestants || []}
-          onClick={this.setActive}
-          active={activeContestant}
-        />
-        {activeContestant ? (
-          <ContestantProfile contestant={activeContestant} users={users} />
-        ) : (
-          'Select a contestant!'
-        )}
-      </MainWrapper>
-    );
-  }
-
-  private setActive = contestant => {
-    this.setState({
-      activeContestant: contestant
-    });
-  };
-}
+export default Contestants;

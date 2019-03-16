@@ -1,4 +1,3 @@
-import * as React from 'react';
 import styled from 'react-emotion';
 import { SMALL_SCREEN } from '../../../styles/responsive';
 

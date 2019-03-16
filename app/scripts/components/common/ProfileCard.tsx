@@ -37,7 +37,7 @@ interface ProfileCardProps {
   additionalInfo?: string;
 }
 
-const ProfileCard: React.StatelessComponent<ProfileCardProps> = (props: ProfileCardProps) => {
+const ProfileCard: React.StatelessComponent<ProfileCardProps> = (props) => {
   const { additionalInfo, imageUrl, name, rank, totalPoints, user } = props;
   return (
     <ProfileCardWrapper>

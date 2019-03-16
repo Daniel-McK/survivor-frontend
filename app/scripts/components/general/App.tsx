@@ -4,7 +4,6 @@ import { Header } from './Header';
 import styled from 'react-emotion';
 import { AppTab } from '../../models/structure';
 import Contestants from '../contestants/Contestants';
-import { Episodes } from '../episodes/Episodes';
 import { connect } from 'react-redux';
 import { DDBPoint, Contestant, Point, User } from '../../models/types';
 import { createLoadPointsAction } from '../../store/actions/points';

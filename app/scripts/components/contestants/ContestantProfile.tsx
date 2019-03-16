@@ -12,9 +12,8 @@ interface BaseContestantProfileProps {
 }
 type ContestantProfileProps = BaseContestantProfileProps & WithPointsProps;
 
-class ContestantProfile extends React.Component<ContestantProfileProps, {}> {
-  public render() {
-    const { contestant, points, users } = this.props;
+const ContestantProfile: React.SFC<ContestantProfileProps> = props => {
+    const { contestant, points, users } = props;
     return (
       <CollapsingRow>
         <ProfileCard
@@ -28,7 +27,6 @@ class ContestantProfile extends React.Component<ContestantProfileProps, {}> {
         <PointsList points={points} showName={false} />
       </CollapsingRow>
     );
-  }
-}
+  };
 
 export default withPoints('contestant.id')(ContestantProfile);

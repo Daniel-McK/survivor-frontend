@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { css } from 'emotion';
 import styled from 'react-emotion';
 import theme from '../../../styles/theme';
 import { replace } from 'lodash';
-import { Contestant } from '../../models/types';
 
 const ListScroller = styled('div')`
   overflow-x: auto;
@@ -76,26 +74,25 @@ interface PhotoListProps {
   active?: PhotoOption;
 }
 
-export default class PhotoList extends React.Component<PhotoListProps, {}> {
-  public render() {
-    const { active, onClick, options } = this.props;
+const PhotoList: React.SFC<PhotoListProps> = props => {
+  const { active, onClick, options } = props;
+  return (
+    <ListScroller>
+      <ListWrapper>
+        {options.map((option: PhotoOption) => (
+          <ListItem
+            onClick={onClick.bind(null, option)}
+            key={option.id}
+            selected={active && active.id === option.id}
+          >
+            <Badge>{option.rank}</Badge>
+            <Image src={option.imageUrl} width="100" height="125" eliminated={!!option.eliminated} />
+            <FloatingName selected={active && active.id === option.id}>{replace(option.name, ' ', '\r\n')}</FloatingName>
+          </ListItem>
+        ))}
+      </ListWrapper>
+    </ListScroller>
+  );
+};
 
-    return (
-      <ListScroller>
-        <ListWrapper>
-          {options.map((option: PhotoOption) => (
-            <ListItem
-              onClick={onClick.bind(null, option)}
-              key={option.id}
-              selected={active && active.id === option.id}
-            >
-              <Badge>{option.rank}</Badge>
-              <Image src={option.imageUrl} width="100" height="125" eliminated={!!option.eliminated} />
-              <FloatingName selected={active && active.id === option.id}>{replace(option.name, ' ', '\r\n')}</FloatingName>
-            </ListItem>
-          ))}
-        </ListWrapper>
-      </ListScroller>
-    );
-  }
-}
+export default PhotoList;

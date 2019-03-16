@@ -10,7 +10,7 @@ export interface WithPointsProps {
 }
 
 export const withPoints = (pathToId: string) => {
-  return <P extends WithPointsProps>(BaseComponent: React.ComponentType<P>) => {
+  return <P extends WithPointsProps>(BaseComponent: React.ComponentType<P> | React.SFC<P>) => {
     class WithPoints extends React.Component<P> {
       public render() {
         const contestantId = get(this.props, pathToId);

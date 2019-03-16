@@ -50,38 +50,35 @@ const PointRow = styled('div')`
   }
 `;
 
-class PointsList extends React.Component<PointsListProps, {}> {
+const PointsList: React.SFC<PointsListProps> = props => {
+  const { points } = props;
 
-  public render() {
-    const { points } = this.props;
+  const pointsByEpisode = groupBy(points, 'episodeId');
 
-    const pointsByEpisode = groupBy(points, 'episodeId');
-
-    return (
-      <ListWrapper>
-        {map(orderBy(keys(pointsByEpisode), (x) => x), (episodeId: string) => {
-          const pointsInEpisode: Point[] = pointsByEpisode[episodeId];
-          const total = sumBy(pointsInEpisode, 'pointType.value');
-          return (
-            <PointGroup key={episodeId}>
-              <PointHeader>
-                <div>{episodeId}</div>
-                <div>{total} points</div>
-              </PointHeader>
-              <PointBreakdown>
-                {map(pointsInEpisode, (point: Point) => (
-                  <PointRow key={point.id}>
-                    <div>{point.pointType.name}</div>
-                    <div>{point.pointType.value} points</div>
-                  </PointRow>
-                ))}
-              </PointBreakdown>
-            </PointGroup>
-          );
-        })}
-      </ListWrapper>
-    );
-  }
-}
+  return (
+    <ListWrapper>
+      {map(orderBy(keys(pointsByEpisode), x => x), (episodeId: string) => {
+        const pointsInEpisode: Point[] = pointsByEpisode[episodeId];
+        const total = sumBy(pointsInEpisode, 'pointType.value');
+        return (
+          <PointGroup key={episodeId}>
+            <PointHeader>
+              <div>{episodeId}</div>
+              <div>{total} points</div>
+            </PointHeader>
+            <PointBreakdown>
+              {map(pointsInEpisode, (point: Point) => (
+                <PointRow key={point.id}>
+                  <div>{point.pointType.name}</div>
+                  <div>{point.pointType.value} points</div>
+                </PointRow>
+              ))}
+            </PointBreakdown>
+          </PointGroup>
+        );
+      })}
+    </ListWrapper>
+  );
+};
 
 export default PointsList;

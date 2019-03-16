@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled, { css } from 'react-emotion';
+import styled from 'react-emotion';
 import theme from '../../../styles/theme';
 import { AppTab } from '../../models/structure';
 
@@ -47,30 +47,28 @@ interface HeaderProps {
   onTabChange: (tab: AppTab) => void;
 }
 
-export class Header extends React.Component<HeaderProps, {}> {
-  public render() {
-    return (
-      <HeaderWrapper>
-        <h1>Fantasy Survivor</h1>
-        <TabList>
-          {tabs.map(tab => (
-            <Tab
-              key={tab.tabId}
-              selected={tab.tabId === this.props.selectedTab}
-              data-id={tab.tabId}
-              onClick={this.onTabClick}
-            >
-              {tab.label}
-            </Tab>
-          ))}
-        </TabList>
-      </HeaderWrapper>
-    );
-  }
-
-  private onTabClick = ev => {
+export const Header: React.SFC<HeaderProps> = props => {
+  const onTabClick = ev => {
     ev &&
       ev.target &&
-      this.props.onTabChange(parseInt(ev.target.dataset.id, 10));
+      props.onTabChange(parseInt(ev.target.dataset.id, 10));
   };
-}
+
+  return (
+    <HeaderWrapper>
+      <h1>Fantasy Survivor</h1>
+      <TabList>
+        {tabs.map(tab => (
+          <Tab
+            key={tab.tabId}
+            selected={tab.tabId === props.selectedTab}
+            data-id={tab.tabId}
+            onClick={onTabClick}
+          >
+            {tab.label}
+          </Tab>
+        ))}
+      </TabList>
+    </HeaderWrapper>
+  );
+};

@@ -8,9 +8,7 @@ interface UserProfileProps {
   user: User;
 }
 
-const UserProfile: React.StatelessComponent<UserProfileProps> = (
-  props: UserProfileProps
-) => {
+const UserProfile: React.StatelessComponent<UserProfileProps> = props => {
   const { user } = props;
   if (!user) {
     return null;
