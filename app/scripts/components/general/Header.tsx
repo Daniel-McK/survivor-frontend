@@ -6,7 +6,8 @@ import { AppTab } from '../../models/structure';
 const tabs = [
   { tabId: AppTab.Contestants, label: 'Contestants' },
   // { tabId: AppTab.Episodes, label: 'Episodes' }
-  { tabId: AppTab.Users, label: 'Users' }
+  { tabId: AppTab.Users, label: 'Users' },
+  { tabId: AppTab.Graph, label: 'Graph' }
 ];
 
 const HeaderWrapper = styled('div')`
@@ -49,9 +50,7 @@ interface HeaderProps {
 
 export const Header: React.SFC<HeaderProps> = props => {
   const onTabClick = ev => {
-    ev &&
-      ev.target &&
-      props.onTabChange(parseInt(ev.target.dataset.id, 10));
+    ev && ev.target && props.onTabChange(parseInt(ev.target.dataset.id, 10));
   };
 
   return (
@@ -59,12 +58,7 @@ export const Header: React.SFC<HeaderProps> = props => {
       <h1>Fantasy Survivor</h1>
       <TabList>
         {tabs.map(tab => (
-          <Tab
-            key={tab.tabId}
-            selected={tab.tabId === props.selectedTab}
-            data-id={tab.tabId}
-            onClick={onTabClick}
-          >
+          <Tab key={tab.tabId} selected={tab.tabId === props.selectedTab} data-id={tab.tabId} onClick={onTabClick}>
             {tab.label}
           </Tab>
         ))}

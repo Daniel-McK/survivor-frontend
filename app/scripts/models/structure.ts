@@ -1,4 +1,5 @@
 export enum AppTab {
   Contestants,
-  Users
+  Users,
+  Graph
 }

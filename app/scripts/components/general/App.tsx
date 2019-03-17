@@ -9,6 +9,7 @@ import { ReduxState } from '../../store';
 import { Users } from '../users/Users';
 import { Dispatch } from 'redux';
 import { loadAllContent } from '../../store/async/data';
+import { PointsByEpisodeGraph } from '../graphs/PointsByEpisodeGraph';
 
 const Scrollable = styled('div')`
   overflow-y: auto;
@@ -31,17 +32,12 @@ const App: React.SFC<AppProps> = props => {
   }, []);
   return (
     <main>
-      <Header
-        onTabChange={setSelectedTab}
-        selectedTab={selectedTab}
-      />
+      <Header onTabChange={setSelectedTab} selectedTab={selectedTab} />
       <Scrollable>
         {selectedTab === AppTab.Users && <Users users={props.users} />}
-        {selectedTab === AppTab.Contestants && (
-          <Contestants
-            contestants={props.contestants}
-            users={props.users}
-          />
+        {selectedTab === AppTab.Contestants && <Contestants contestants={props.contestants} users={props.users} />}
+        {selectedTab === AppTab.Graph && (
+          <PointsByEpisodeGraph points={props.points} users={props.users} contestants={props.contestants} />
         )}
       </Scrollable>
     </main>
