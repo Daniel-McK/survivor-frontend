@@ -1,4 +1,4 @@
-import { filter, forEach, map, orderBy, sumBy } from 'lodash';
+import { filter, get, map, orderBy, split, sumBy } from 'lodash';
 import { LOAD_CONTESTANTS, RANK_CONTESTANTS_AND_USERS } from '../actions/types';
 import { Contestant, Point } from '../../models/types';
 
@@ -17,7 +17,7 @@ export function contestants(state = [], action): ContestantsState {
 
 function rankContestants(contestants: Contestant[], points: Point[]): Contestant[] {
   const contestantsWithPoints = map(contestants, (contestant: Contestant) => addPointsToContestant(contestant, points));
-  const orderedContestants = orderBy(contestantsWithPoints, (contestant: Contestant) => -(contestant.totalPoints));
+  const orderedContestants = orderBy(contestantsWithPoints, (contestant: Contestant) => -contestant.totalPoints);
 
   let previousScore = Number.MAX_SAFE_INTEGER;
   let previousRank = 1;
@@ -34,9 +34,16 @@ function rankContestants(contestants: Contestant[], points: Point[]): Contestant
 }
 
 function addPointsToContestant(contestant: Contestant, points: Point[]): Contestant {
-  const pointsForContestant = filter(points, { contestantId: contestant.id }) || [];
+  const pointsForContestant = filter(
+    points,
+    (point: Point) => getContestantIdFromComposite(get(point, 'contestantPlusId')) === contestant.id
+  );
   return {
     ...contestant,
     totalPoints: sumBy(pointsForContestant, (point: Point) => point.pointType.value) || 0
   };
+}
+
+function getContestantIdFromComposite(compositeId: string) {
+  return split(compositeId, '+')[0];
 }
