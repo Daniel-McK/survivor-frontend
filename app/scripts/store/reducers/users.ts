@@ -1,6 +1,7 @@
 import { LOAD_USERS, RANK_CONTESTANTS_AND_USERS } from '../actions/types';
 import { User, Contestant, Point } from '../../models/types';
-import { filter, keyBy, map, mapValues, orderBy, sumBy } from 'lodash';
+import { filter, get, keyBy, map, mapValues, orderBy, sumBy } from 'lodash';
+import { getContestantIdFromComposite } from '../../utils/contestants';
 
 export type UsersState = User[];
 
@@ -41,7 +42,8 @@ function rankUsers(users: User[], contestants: Contestant[], points: Point[]): U
 
 function addPointsToUser(user: User, points: Point[], usersByContestantId): User {
   const pointsForUser = filter(points, (point: Point) => {
-    const userForPoint = usersByContestantId[point.contestantId];
+    const contestantId = getContestantIdFromComposite(get(point, 'contestantPlusId'));
+    const userForPoint = usersByContestantId[contestantId];
     return userForPoint && user.username === userForPoint.username;
   });
   return {

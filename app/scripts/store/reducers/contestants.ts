@@ -1,6 +1,7 @@
 import { filter, get, map, orderBy, split, sumBy } from 'lodash';
 import { LOAD_CONTESTANTS, RANK_CONTESTANTS_AND_USERS } from '../actions/types';
 import { Contestant, Point } from '../../models/types';
+import { getContestantIdFromComposite } from '../../utils/contestants';
 
 export type ContestantsState = Contestant[];
 
@@ -44,6 +45,3 @@ function addPointsToContestant(contestant: Contestant, points: Point[]): Contest
   };
 }
 
-function getContestantIdFromComposite(compositeId: string) {
-  return split(compositeId, '+')[0];
-}
