@@ -44,7 +44,10 @@ function getEpisodeName(episodeId: string) {
 }
 
 function getEpisodeIds(points: Point[]) {
-  return ['ep-0', ...uniq(map(points, point => point.episodeId)).sort()];
+  return ['ep-0', ...uniq(map(points, point => point.episodeId)).sort((a, b) => {
+    // sort the episode IDs numerically by episode number, not string comparison
+    return parseInt(a.substring(3)) - parseInt(b.substring(3));
+  })];
 }
 
 const COLOURS = [
