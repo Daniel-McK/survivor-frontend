@@ -5,13 +5,13 @@ import { createLoadUsersAction } from '../actions/users';
 import { createLoadPointsAction } from '../actions/points';
 
 async function loadPoints(dispatch: Dispatch) {
-  const response = await getPoints('season-38');
+  const response = await getPoints('season-39');
   dispatch(createLoadPointsAction(response.data));
   return response.data;
 }
 
 async function loadContestants(dispatch: Dispatch) {
-  const response = await getContestants('season-38');
+  const response = await getContestants('season-39');
   dispatch(createLoadContestantsAction(response.data));
   return response.data;
 }

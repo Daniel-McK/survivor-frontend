@@ -24,7 +24,7 @@ const ListItem = styled('li')(({ selected }: any) => `
   position: relative;
   margin: 4px;
   overflow: hidden;
-  min-width: 100px;
+  min-width: 160px;
 
   &:hover > pre {
     background-color: ${selected ? theme.color.primaryLight : '#c6ddde'}
@@ -41,7 +41,7 @@ const FloatingName = styled('pre')(({ selected }: any) => `
   vertical-align: center;
   background-color: ${selected ? theme.color.primaryLight : '#F5FFFF'};
   color: ${selected ? theme.color.primaryFont : theme.color.secondaryFont};
-  width: 100px;
+  width: 100%;
   opacity: 0.9;
 `);
 
@@ -86,8 +86,8 @@ const PhotoList: React.SFC<PhotoListProps> = props => {
             selected={active && active.id === option.id}
           >
             <Badge>{option.rank}</Badge>
-            <Image src={option.imageUrl} width="100" height="125" eliminated={!!option.eliminated} />
-            <FloatingName selected={active && active.id === option.id}>{replace(option.name, ' ', '\r\n')}</FloatingName>
+            <Image src={option.imageUrl} width="160" height="120" eliminated={!!option.eliminated} />
+            <FloatingName selected={active && active.id === option.id}>{option.name}</FloatingName>
           </ListItem>
         ))}
       </ListWrapper>

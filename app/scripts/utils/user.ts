@@ -4,4 +4,4 @@ export function getFullName(user: User) {
   return `${user.firstName} ${user.lastName}`;
 }
 
-export const JEFF_URL = 'https://wwwimage-secure.cbsstatic.com/thumbnails/photos/w270/cast/4048f07cd7d2b184_probst_800.jpg';
+export const JEFF_URL = 'https://assets.globaltv.com/wp-content/uploads/2019/01/survivor-cast-Jeff-Probst-season-38-edge-of-extinction-20191.jpg';
