@@ -15,11 +15,14 @@ const Scrollable = styled('div')`
   overflow-y: auto;
 `;
 
+const Main = styled('main')``;
+
 interface AppProps {
   // redux state
   contestants?: Contestant[];
   points?: Point[];
   users?: User[];
+  initialized?: boolean;
 
   // redux actions
   dispatch?: Dispatch;
@@ -31,16 +34,18 @@ const App: React.SFC<AppProps> = props => {
     loadAllContent(props.dispatch);
   }, []);
   return (
-    <main>
-      <Header onTabChange={setSelectedTab} selectedTab={selectedTab} />
-      <Scrollable>
-        {selectedTab === AppTab.Users && <Users users={props.users} />}
-        {selectedTab === AppTab.Contestants && <Contestants contestants={props.contestants} users={props.users} />}
-        {selectedTab === AppTab.Graph && (
-          <PointsByEpisodeGraph points={props.points} users={props.users} contestants={props.contestants} />
-        )}
-      </Scrollable>
-    </main>
+    <Main>
+      <Header onTabChange={setSelectedTab} selectedTab={selectedTab} loading={!props.initialized} />
+      {props.initialized && (
+        <Scrollable>
+          {selectedTab === AppTab.Users && <Users users={props.users} />}
+          {selectedTab === AppTab.Contestants && <Contestants contestants={props.contestants} users={props.users} />}
+          {selectedTab === AppTab.Graph && (
+            <PointsByEpisodeGraph points={props.points} users={props.users} contestants={props.contestants} />
+          )}
+        </Scrollable>
+      )}
+    </Main>
   );
 };
 
@@ -48,7 +53,8 @@ function mapStateToProps(state: ReduxState) {
   return {
     contestants: state.contestants,
     points: state.points,
-    users: state.users
+    users: state.users,
+    initialized: state.app.initialized
   };
 }
 

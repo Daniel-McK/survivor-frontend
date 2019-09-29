@@ -17,8 +17,10 @@ const MainWrapper = styled('div')`
 `;
 
 const Contestants: React.SFC<ContestantsProps> = props => {
-  const [activeContestant, setActiveContestant] = React.useState<Contestant>(null);
   const { contestants, users } = props;
+  const [activeContestant, setActiveContestant] = React.useState<Contestant>(
+    contestants.length > 0 ? contestants[0] : null
+  );
 
   const onSwipedLeft = () => {
     const position = contestants.indexOf(activeContestant);

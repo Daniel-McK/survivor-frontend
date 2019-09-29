@@ -16,11 +16,8 @@ const HeaderWrapper = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  > h1 {
-    margin: 0;
-    padding: 15px 0 10px;
-  }
+  padding-top: 40px;
+  position: relative;
 `;
 
 const TabList = styled('nav')`
@@ -43,7 +40,32 @@ const Tab = styled('div')(
 `
 );
 
+const TitleWrapper = styled('div')`
+  z-index: 2;
+  width: 100vw;
+  background-color: ${theme.color.primary};
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 16px;
+  height: ${({ loading }: { loading: boolean }) => (loading ? '100vh' : '40px')};
+  transition: height .33s ease-in-out;
+`;
+
+const Title = styled('h1')`
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 interface HeaderProps {
+  loading: boolean;
   selectedTab: AppTab;
   onTabChange: (tab: AppTab) => void;
 }
@@ -55,7 +77,9 @@ export const Header: React.SFC<HeaderProps> = props => {
 
   return (
     <HeaderWrapper>
-      <h1>Fantasy Survivor</h1>
+      <TitleWrapper loading={props.loading}>
+        <Title>Fantasy Survivor</Title>
+      </TitleWrapper>
       <TabList>
         {tabs.map(tab => (
           <Tab key={tab.tabId} selected={tab.tabId === props.selectedTab} data-id={tab.tabId} onClick={onTabClick}>
