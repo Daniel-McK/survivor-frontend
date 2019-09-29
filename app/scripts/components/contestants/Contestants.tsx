@@ -3,6 +3,7 @@ import PhotoList from './PhotoList';
 import styled from '../../../../node_modules/react-emotion';
 import { Contestant, User } from '../../models/types';
 import ContestantProfile from './ContestantProfile';
+import { Swipeable } from 'react-swipeable';
 
 interface ContestantsProps {
   contestants?: Contestant[];
@@ -18,15 +19,28 @@ const MainWrapper = styled('div')`
 const Contestants: React.SFC<ContestantsProps> = props => {
   const [activeContestant, setActiveContestant] = React.useState<Contestant>(null);
   const { contestants, users } = props;
+
+  const onSwipedLeft = () => {
+    const position = contestants.indexOf(activeContestant);
+    if (position >= 0 && position < contestants.length - 1) {
+      setActiveContestant(contestants[position + 1]);
+    }
+  };
+
+  const onSwipedRight = () => {
+    const position = contestants.indexOf(activeContestant);
+    if (position > 0 && position <= contestants.length - 1) {
+      setActiveContestant(contestants[position - 1]);
+    }
+  };
+
   return (
     <MainWrapper>
-      <PhotoList
-        options={contestants || []}
-        onClick={setActiveContestant}
-        active={activeContestant}
-      />
+      <PhotoList options={contestants || []} onClick={setActiveContestant} active={activeContestant} />
       {activeContestant ? (
-        <ContestantProfile contestant={activeContestant} users={users} />
+        <Swipeable onSwipedLeft={onSwipedLeft} onSwipedRight={onSwipedRight}>
+          <ContestantProfile contestant={activeContestant} users={users} />
+        </Swipeable>
       ) : (
         'Select a contestant!'
       )}
