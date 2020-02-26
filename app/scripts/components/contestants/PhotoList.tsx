@@ -16,7 +16,8 @@ const ListWrapper = styled('ul')`
   border-bottom: solid 1px #c6ddde;
 `;
 
-const ListItem = styled('li')(({ selected }: any) => `
+const ListItem = styled('li')(
+  ({ selected }: any) => `
   cursor: pointer;
   text-align: center;
   display: flex;
@@ -24,7 +25,7 @@ const ListItem = styled('li')(({ selected }: any) => `
   position: relative;
   margin: 4px;
   overflow: hidden;
-  min-width: 160px;
+  min-width: 150px;
 
   &:hover > pre {
     background-color: ${selected ? theme.color.primaryLight : '#c6ddde'}
@@ -32,7 +33,8 @@ const ListItem = styled('li')(({ selected }: any) => `
 `
 );
 
-const FloatingName = styled('pre')(({ selected }: any) => `
+const FloatingName = styled('pre')(
+  ({ selected }: any) => `
   position: absolute;
   margin: 0;
   padding: 5px 0;
@@ -43,7 +45,8 @@ const FloatingName = styled('pre')(({ selected }: any) => `
   color: ${selected ? theme.color.primaryFont : theme.color.secondaryFont};
   width: 100%;
   opacity: 0.9;
-`);
+`
+);
 
 const Badge = styled('div')`
   position: absolute;
@@ -56,9 +59,16 @@ const Badge = styled('div')`
   z-index: 1;
 `;
 
-const Image = styled('img')(({ eliminated }: any) => `
-  ${ eliminated ? 'filter: grayscale(100%);' : ''}
-`);
+const TopHalf = styled('div')`
+  max-height: 150px;
+  overflow: hidden;
+`;
+
+const Image = styled('img')(
+  ({ eliminated }: any) => `
+  ${eliminated ? 'filter: grayscale(100%);' : ''}
+`
+);
 
 export interface PhotoOption {
   id: string;
@@ -80,13 +90,11 @@ const PhotoList: React.SFC<PhotoListProps> = props => {
     <ListScroller>
       <ListWrapper>
         {options.map((option: PhotoOption) => (
-          <ListItem
-            onClick={onClick.bind(null, option)}
-            key={option.id}
-            selected={active && active.id === option.id}
-          >
+          <ListItem onClick={onClick.bind(null, option)} key={option.id} selected={active && active.id === option.id}>
             <Badge>{option.rank}</Badge>
-            <Image src={option.imageUrl} width="160" height="120" eliminated={!!option.eliminated} />
+            <TopHalf>
+              <Image src={option.imageUrl} width="150" height="264" eliminated={!!option.eliminated} />
+            </TopHalf>
             <FloatingName selected={active && active.id === option.id}>{option.name}</FloatingName>
           </ListItem>
         ))}
