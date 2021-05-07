@@ -37,7 +37,7 @@
     "emotion": "^9.2.8",
     "hoek": "^4.2.1",
     "html-webpack-plugin": "^3.2.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "react": "^16.8.0",
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.8.0",
